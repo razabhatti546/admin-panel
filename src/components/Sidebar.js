@@ -16,6 +16,14 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
 
   const menuItems = [
     { id: "dashboard", name: "Dashboard", icon: HomeIcon, href: "/dashboard" },
+    {
+      id: "analytics",
+      name: "Analytics",
+      icon: ChartBarIcon,
+      href: "/analytics",
+    },
+    { id: "users", name: "Users", icon: UsersIcon, href: "/users" },
+    { id: "settings", name: "Settings", icon: CogIcon, href: "/settings" },
   ];
 
   return (

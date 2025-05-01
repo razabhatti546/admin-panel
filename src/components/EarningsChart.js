@@ -239,7 +239,7 @@ export default function EarningsChart() {
   };
 
   return (
-    <div className="p-6 bg-black border border-gray-800 rounded-lg shadow">
+    <div className="p-6  bg-black border border-gray-800 rounded-lg shadow">
       <div className="flex justify-between items-center mb-4">
         <div>
           <h2 className="text-white text-lg font-medium">
