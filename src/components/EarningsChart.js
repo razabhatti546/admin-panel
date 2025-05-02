@@ -13,6 +13,7 @@ import {
   Filler,
   Legend,
 } from "chart.js";
+import DateRangeSelector from "./DateRangeSelector";
 
 // Register Chart.js components
 ChartJS.register(
@@ -52,26 +53,92 @@ function setupRoundedRect() {
 
 export default function EarningsChart() {
   const [dateRange, setDateRange] = useState("02 May - 08 May");
+  const [chartData, setChartData] = useState({
+    labels: [],
+    dataPoints: [],
+    totalEarnings: 0,
+    percentageChange: 0,
+  });
 
   // Setup roundRect polyfill when component mounts
   useEffect(() => {
     setupRoundedRect();
   }, []);
 
-  // Sample data for the chart
-  const labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-  const dataPoints = [5000, 20000, 15000, 10000, 18000, 25000, 32000];
+  // Update chart data when date range changes
+  useEffect(() => {
+    // This would typically be an API call based on the dateRange
+    // For now we'll use mock data
+    const mockDataSets = {
+      "02 May - 08 May": {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        dataPoints: [5000, 20000, 15000, 10000, 18000, 25000, 32000],
+        totalEarnings: 10000,
+        percentageChange: 5,
+      },
+      "09 May - 15 May": {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        dataPoints: [8000, 12000, 19000, 22000, 17000, 23000, 28000],
+        totalEarnings: 12500,
+        percentageChange: 7.5,
+      },
+      "16 May - 22 May": {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        dataPoints: [10000, 16000, 22000, 19000, 21000, 26000, 30000],
+        totalEarnings: 15000,
+        percentageChange: 10,
+      },
+      "23 May - 29 May": {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        dataPoints: [12000, 18000, 24000, 28000, 22000, 30000, 35000],
+        totalEarnings: 18000,
+        percentageChange: 12,
+      },
+      "Last 7 Days": {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        dataPoints: [15000, 22000, 18000, 25000, 30000, 27000, 34000],
+        totalEarnings: 20000,
+        percentageChange: 8,
+      },
+      "Last 30 Days": {
+        labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
+        dataPoints: [80000, 95000, 75000, 105000, 120000],
+        totalEarnings: 120000,
+        percentageChange: 15,
+      },
+      "This Month": {
+        labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+        dataPoints: [65000, 82000, 94000, 110000],
+        totalEarnings: 110000,
+        percentageChange: 9.5,
+      },
+      "Last Month": {
+        labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+        dataPoints: [60000, 75000, 85000, 95000],
+        totalEarnings: 95000,
+        percentageChange: 7,
+      },
+    };
+
+    // Set the chart data based on the selected date range
+    setChartData(mockDataSets[dateRange] || mockDataSets["02 May - 08 May"]);
+  }, [dateRange]);
+
+  // Handle date range change
+  const handleDateRangeChange = (newRange) => {
+    setDateRange(newRange);
+  };
 
   // Highlighted point (like in the image)
-  const highlightedPointIndex = 3; // Thursday
-  const highlightedValue = dataPoints[highlightedPointIndex];
-  const highlightedDate = "23 Aug 2024";
+  const highlightedPointIndex = Math.floor(chartData.dataPoints.length / 2); // Middle point
+  const highlightedValue = chartData.dataPoints[highlightedPointIndex] || 0;
+  const highlightedDate = "23 Aug 2024"; // This would typically be derived from the actual date
 
   const data = {
-    labels,
+    labels: chartData.labels,
     datasets: [
       {
-        data: dataPoints,
+        data: chartData.dataPoints,
         borderColor: "#10b981", // Green line color
         backgroundColor: (context) => {
           const ctx = context.chart.ctx;
@@ -196,7 +263,7 @@ export default function EarningsChart() {
       },
       y: {
         min: 0,
-        max: 50000,
+        max: Math.max(...chartData.dataPoints) * 1.5 || 50000,
         border: {
           display: false,
         },
@@ -214,7 +281,7 @@ export default function EarningsChart() {
             return `$${value / 1000}k`;
           },
           padding: 10,
-          stepSize: 10000,
+          stepSize: Math.max(...chartData.dataPoints) / 5 || 10000,
         },
       },
     },
@@ -246,14 +313,23 @@ export default function EarningsChart() {
             Total Commission Earn through Trades
           </h2>
           <div className="flex items-baseline space-x-2 mt-1">
-            <span className="text-[#10b981] text-4xl font-bold">$10,000K</span>
-            <span className="text-green-500 text-sm">+5%</span>
+            <span className="text-[#10b981] text-4xl font-bold">
+              ${(chartData.totalEarnings / 1000).toFixed(0)}K
+            </span>
+            <span className="text-green-500 text-sm">
+              +{chartData.percentageChange}%
+            </span>
           </div>
-          <span className="text-gray-400 text-xs">Last 7 Days</span>
+          <span className="text-gray-400 text-xs">
+            {dateRange.includes("Last") || dateRange.includes("Month")
+              ? dateRange
+              : "Last 7 Days"}
+          </span>
         </div>
-        <button className="px-4 py-2 bg-black border border-gray-700 rounded-full text-gray-300 text-sm">
-          {dateRange} <span className="ml-1">▼</span>
-        </button>
+        <DateRangeSelector
+          selectedRange={dateRange}
+          onRangeChange={handleDateRangeChange}
+        />
       </div>
       <div className="mt-8 h-[300px]">
         <Line data={data} options={options} plugins={plugins} />

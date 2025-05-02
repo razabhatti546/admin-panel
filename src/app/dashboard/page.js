@@ -9,7 +9,7 @@ export default function Dashboard() {
       <div className="w-[75%]">
         {/* Metric Cards in top left */}
         <div className="flex justify-between w-full gap-4">
-          <div className="bg-black h-[200px] w-full rounded-lg border border-gray-800 p-5">
+          <div className="bg-black h-[150px] w-full rounded-lg border border-gray-800 p-5">
             <div className="flex items-center justify-between">
               <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-amber-700/60 mr-4">
                 <svg
@@ -29,7 +29,7 @@ export default function Dashboard() {
               </div>
               <div className="text-2xl font-bold text-white mb-1">30K</div>
             </div>
-            <div className="flex h-full items-center mt-5">
+            <div className="flex h-full items-center ">
               <div className="text-white text-xl">Active Trades</div>
             </div>
           </div>
@@ -55,7 +55,7 @@ export default function Dashboard() {
               </div>
               <div className="text-2xl font-bold text-white mb-1">10K</div>
             </div>
-            <div className="flex h-full items-center mt-5">
+            <div className="flex h-full items-center">
               <div className="text-white text-xl">Active Subscriptions</div>
             </div>
           </div>
@@ -81,7 +81,7 @@ export default function Dashboard() {
               </div>
               <div className="text-2xl font-bold text-white mb-1">20K</div>
             </div>
-            <div className="flex h-full items-center mt-5">
+            <div className="flex h-full items-center ">
               <div className="text-white text-xl">Pending Subscriptions</div>
             </div>
           </div>
