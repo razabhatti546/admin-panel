@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   HomeIcon,
   ChartBarIcon,
@@ -12,7 +13,30 @@ import {
 } from "./Icons";
 
 export default function Sidebar({ isOpen, toggleSidebar }) {
-  const [activeItem, setActiveItem] = useState("dashboard");
+  const pathname = usePathname();
+  const [activeItem, setActiveItem] = useState("");
+
+  // Set active item based on current path when component mounts
+  useEffect(() => {
+    const path = pathname;
+    if (path.includes("/dashboard/referrals")) {
+      setActiveItem("referrals");
+    } else if (path.includes("/dashboard")) {
+      setActiveItem("dashboard");
+    } else if (path.includes("/strategies")) {
+      setActiveItem("strategies");
+    } else if (path.includes("/trades")) {
+      setActiveItem("trades");
+    } else if (path.includes("/subscription-management")) {
+      setActiveItem("subscription-management");
+    } else if (path.includes("/user-management")) {
+      setActiveItem("user-management");
+    } else if (path.includes("/trades-analytics")) {
+      setActiveItem("trades-analytics");
+    } else if (path.includes("/settings")) {
+      setActiveItem("settings");
+    }
+  }, [pathname]);
 
   const menuItems = [
     {
@@ -20,7 +44,6 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
       name: "Dashboard",
       icon: HomeIcon,
       href: "/dashboard",
-      highlight: true,
     },
     {
       id: "strategies",
@@ -61,7 +84,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
       id: "referrals",
       name: "Referrals",
       icon: UsersIcon,
-      href: "/referrals",
+      href: "/dashboard/referrals",
     },
     {
       id: "subscription-management",
@@ -165,7 +188,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
                 className={`
                   flex items-center p-2 rounded-lg 
                   ${
-                    activeItem === item.id || item.highlight
+                    activeItem === item.id
                       ? "bg-black text-yellow-500"
                       : "text-gray-300 hover:bg-gray-800"
                   }
@@ -175,15 +198,13 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
               >
                 <item.icon
                   className={`w-5 h-5 ${
-                    activeItem === item.id || item.highlight
-                      ? "text-yellow-500"
-                      : "text-gray-300"
+                    activeItem === item.id ? "text-yellow-500" : "text-gray-300"
                   }`}
                 />
                 {isOpen && (
                   <span
                     className={`ml-3 whitespace-nowrap ${
-                      activeItem === item.id || item.highlight
+                      activeItem === item.id
                         ? "text-yellow-500 font-medium"
                         : "text-gray-300"
                     }`}

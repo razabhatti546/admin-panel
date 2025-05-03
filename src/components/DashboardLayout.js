@@ -44,7 +44,7 @@ export default function DashboardLayout({ children }) {
       <main
         className={`
         pt-20 pb-4 px-4 md:px-6
-        transition-all duration-300 ease-in-out
+        transition-all duration-300 ease-in-out bg-black
         ${isSidebarOpen ? "md:ml-64" : "md:ml-16"}
       `}
       >
