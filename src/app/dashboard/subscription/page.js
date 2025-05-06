@@ -196,9 +196,13 @@ export default function SubscriptionPage() {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <ClientSubscriptionStats />
-        <ClientRevenueChart />
+      <div className="grid grid-cols-3 gap-6">
+        <div className="col-span-1">
+          <ClientSubscriptionStats />
+        </div>
+        <div className="col-span-2">
+          <ClientRevenueChart />
+        </div>
       </div>
 
       <div className="max-w-[600px] flex justify-start">

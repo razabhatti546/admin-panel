@@ -1,9 +1,28 @@
 "use client";
 
 import { BellIcon, SearchIcon, UserIcon, MenuIcon } from "./Icons";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 export default function Header({ isOpen }) {
+  const pathname = usePathname();
+
+  // Function to get page title from pathname
+  const getPageTitle = () => {
+    if (pathname === "/dashboard") return "Dashboard";
+    if (pathname.includes("/dashboard/trades-analytics"))
+      return "Trades Analytics";
+    if (pathname.includes("/dashboard/subscription"))
+      return "Subscription Management";
+    if (pathname.includes("/dashboard/user-management"))
+      return "User Management";
+    if (pathname.includes("/dashboard/referrals")) return "Referrals";
+    if (pathname.includes("/dashboard/strategies")) return "Strategies";
+    if (pathname.includes("/dashboard/trades")) return "Trades";
+    if (pathname.includes("/dashboard/settings")) return "Settings";
+    return "Dashboard"; // Default title
+  };
+
   return (
     <header
       className={`
@@ -16,7 +35,7 @@ export default function Header({ isOpen }) {
     `}
     >
       <div className="flex items-center">
-        <h1 className="text-xl font-semibold text-white">Dashboard</h1>
+        <h1 className="text-xl font-semibold text-white">{getPageTitle()}</h1>
       </div>
 
       <div className="flex items-center space-x-4">

@@ -19,20 +19,21 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
   // Set active item based on current path when component mounts
   useEffect(() => {
     const path = pathname;
-    if (path.includes("/dashboard/referrals")) {
+    // Check more specific paths first, then more general ones
+    if (path.includes("/dashboard/trades-analytics")) {
+      setActiveItem("trades-analytics");
+    } else if (path.includes("/dashboard/subscription")) {
+      setActiveItem("subscription-management");
+    } else if (path.includes("/dashboard/user-management")) {
+      setActiveItem("user");
+    } else if (path.includes("/dashboard/referrals")) {
       setActiveItem("referrals");
-    } else if (path.includes("/dashboard")) {
-      setActiveItem("dashboard");
     } else if (path.includes("/dashboard/strategies")) {
       setActiveItem("strategies");
     } else if (path.includes("/dashboard/trades")) {
       setActiveItem("trades");
-    } else if (path.includes("/dashboard/subscription")) {
-      setActiveItem("subscription-management");
-    } else if (path.includes("/dashboard/user-management")) {
-      setActiveItem("user-management");
-    } else if (path.includes("/dashboard/trades-analytics")) {
-      setActiveItem("trades-analytics");
+    } else if (path.includes("/dashboard")) {
+      setActiveItem("dashboard");
     } else if (path.includes("/dashboard/settings")) {
       setActiveItem("settings");
     }
@@ -107,7 +108,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
       href: "/dashboard/subscription",
     },
     {
-      id: "user-management",
+      id: "user",
       name: "User management",
       icon: (props) => (
         <svg
@@ -145,7 +146,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
       id: "settings",
       name: "Settings",
       icon: CogIcon,
-      href: "/settings",
+      href: "/dashboard/settings",
     },
   ];
 
@@ -194,7 +195,6 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
                   }
                   ${isOpen ? "" : "justify-center"}
                 `}
-                onClick={() => setActiveItem(item.id)}
               >
                 <item.icon
                   className={`w-5 h-5 ${
