@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ReferralTable() {
   const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
 
   // Sample data for referrals
   const referrals = [
@@ -40,6 +42,11 @@ export default function ReferralTable() {
       rewardsReceived: 300,
     },
   ];
+
+  // Navigate to user detail page
+  const handleViewUserDetail = (userId) => {
+    router.push(`/dashboard/referrals/user/${userId}`);
+  };
 
   // Filter referrals based on search term
   const filteredReferrals = referrals.filter(
@@ -135,7 +142,10 @@ export default function ReferralTable() {
                   ${referral.rewardsReceived}
                 </td>
                 <td className="px-6 py-4 text-center">
-                  <button className="bg-yellow-500 text-black rounded-full w-6 h-6 flex items-center justify-center">
+                  <button
+                    className="bg-yellow-500 text-black rounded-full w-6 h-6 flex items-center justify-center hover:bg-yellow-600 cursor-pointer"
+                    onClick={() => handleViewUserDetail(referral.userId)}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-4 w-4"
