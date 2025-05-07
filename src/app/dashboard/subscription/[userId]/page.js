@@ -212,7 +212,7 @@ export default function UserSubscriptionDetail() {
   }
 
   return (
-    <div className="bg-black text-white min-h-screen">
+    <div className="bg-black text-white ">
       {/* Header with back button */}
       <div className="p-4">
         <Link

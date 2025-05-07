@@ -146,7 +146,7 @@ export default function ReferralDetail({ userId }) {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen relative">
+    <div className="bg-black text-white  relative">
       {/* Back button */}
       <div className="py-4 px-6">
         <Link

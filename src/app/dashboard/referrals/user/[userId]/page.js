@@ -6,7 +6,7 @@ export default function ReferralDetailPage({ params }) {
   const { userId } = params;
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-black ">
       <ReferralDetail userId={userId} />
     </div>
   );

@@ -62,7 +62,7 @@ export default function UserManagementPage() {
   };
 
   return (
-    <div className="p-6 bg-black text-white min-h-screen relative">
+    <div className="p-6 bg-black text-white  relative">
       {/* Header with User Profile */}
 
       {/* User Stats Cards */}

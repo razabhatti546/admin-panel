@@ -37,7 +37,7 @@ export default function DashboardLayout({ children }) {
   }, [isSidebarOpen]);
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="h-screen bg-black">
       <Header isOpen={isSidebarOpen} />
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
