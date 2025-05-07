@@ -56,7 +56,7 @@ export default function SubscriptionOverview() {
 
       <div className="flex-grow flex flex-col items-center justify-center">
         {/* Chart Container */}
-        <div className="relative w-full max-w-[180px] mx-auto aspect-square flex items-center justify-center">
+        <div className="relative w-full max-w-[230px] h-[230px] mx-auto flex items-center justify-center">
           <Doughnut data={chartData} options={chartOptions} />
 
           {/* Center content */}

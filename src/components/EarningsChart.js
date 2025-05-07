@@ -331,7 +331,7 @@ export default function EarningsChart() {
           onRangeChange={handleDateRangeChange}
         />
       </div>
-      <div className="mt-8 h-[300px]">
+      <div className="mt-8 h-[340px]">
         <Line data={data} options={options} plugins={plugins} />
       </div>
     </div>

@@ -36,7 +36,7 @@ export default function TopTraders() {
   ];
 
   return (
-    <div className="p-4 bg-black border border-gray-800 rounded-lg shadow">
+    <div className="p-4 bg-black border  border-gray-800 rounded-lg shadow">
       <h2 className="text-white text-lg font-medium mb-3">Top 5 Traders</h2>
 
       <div className="space-y-3">
